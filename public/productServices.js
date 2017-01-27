@@ -3,7 +3,7 @@ angular.module("productServices", [])
     var getProducts = function() {
       return $http({
         method: 'GET',
-        url: 'http://localhost:3000/products'
+        url: process.env.HEROKU_URL || 'http://localhost:3000/products'
       }).then(function successCallback(response) {
         console.log('response', response);
         return response.data;
