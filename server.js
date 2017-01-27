@@ -9,7 +9,7 @@ app.get('/products', function(req, res) {
     res.send(JSON.parse(data));
   });
 });
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, function(req, res) {
   console.log('listening on port: ' + 3000);
 });
