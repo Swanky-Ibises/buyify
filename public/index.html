@@ -1,0 +1,40 @@
+<html ng-app="root">
+
+<head>
+  <meta charset="utf-8">
+  <title>Buyify</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+  <main>
+    <nav>
+      <div class="nav-wrapper">
+        <a href="#" class="brand-logo">Buyify</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li><a ui-sref="products" ui-sref-active="active">Products</a></li>
+          <li><i class="material-icons"><a ui-sref="checkout" ui-sref-active="active">shopping_cart</a></i></li>
+        </ul>
+      </div>
+    </nav>
+    <ui-view>
+      <div class="row center-align" ng-controller="productsController">
+        <div class="col s3" ng-repeat="product in products" class="col s12 m6 l3">
+          <img class="productImg circle" ng-src="{{ product.ImageURL }}" />
+          <p>{{ product.name }}</p>
+          <p>{{ product.Price | currency:"$" }}</p>
+          <a ng-click="addToCart(product.name, product.Price, product.ImageURL)" class="waves-effect waves-light btn-large">Add To Cart</a>
+        </div>
+      </div>
+    </ui-view>
+  </main>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
+  <script src="//unpkg.com/angular-ui-router/release/angular-ui-router.min.js"></script>
+  <script src="productServices.js"></script>
+  <script src="root.js"></script>
+  <script src="wokeShark.js"></script>
+</body>
+
+</html>

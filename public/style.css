@@ -1,0 +1,7 @@
+.productImg {
+  height: 50%;
+  width: auto;
+  padding: 5px;
+}
+
+.active { color: blue; font-weight: bolder; }

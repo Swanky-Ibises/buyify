@@ -1,0 +1,22 @@
+{
+  "name": "ecommercedemo",
+  "version": "1.0.0",
+  "description": "fake ecommerce site",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "keywords": [
+    "test",
+    "site"
+  ],
+  "author": "tony hyde",
+  "license": "ISC",
+  "dependencies": {
+    "angular-ui-router": "^0.4.2",
+    "express": "^4.14.0",
+    "live-server": "^1.2.0",
+    "nodemon": "^1.11.0"
+  }
+}
