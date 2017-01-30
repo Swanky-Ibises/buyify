@@ -7,10 +7,10 @@
   <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
-
 <body>
   <main>
-    <nav class="center-align blue-grey darken-4">
+
+    <nav class="blue-grey darken-4">
       <div class="center-align nav-wrapper">
         <a href="#" class="brand-logo">Buyify</a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
@@ -19,15 +19,20 @@
         </ul>
       </div>
     </nav>
+
     <ui-view>
-      <div class="row center-align" ng-controller="productsController">
-        <div class="center-align product card col s3" ng-repeat="product in products" class="col s12 m6 l3">
+
+      <div class="row" ng-controller="productsController">
+        <div class="product card col s3" ng-repeat="product in products" class="col s12 m6 l3">
+          <div class="center-align vertical-align">
           <img class="productImg circle" ng-src="{{ product.ImageURL }}" />
           <p>{{ product.name }}</p>
           <p>{{ product.Price | currency:"$" }}</p>
-          <a ng-click="addToCart(product.name, product.Price, product.ImageURL)" class="waves-effect waves-light btn-large teal darken-4">Add To Cart</a>
+          <a id="atc" ng-click="addToCart(product.name, product.Price, product.ImageURL)" class="waves-effect waves-light btn-large teal darken-4">Add To Cart</a>
+          </div>
         </div>
       </div>
+
     </ui-view>
   </main>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>

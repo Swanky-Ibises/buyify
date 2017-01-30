@@ -54,9 +54,13 @@ var root = angular.module("root", ["productServices", "ui.router"])
     var checkoutState = {
       name: 'checkout',
       url: '/checkout',
-      template: `<div class="row center-align" ng-controller="checkoutController"><div ng-hide="{{checkoutInfo.itemCount.length === 0}}" class="ng-hide">
-        <ul class="collection" ng-repeat="image in checkoutInfo.imageURLS track by $index"><li><img class="productImg" ng-src="{{ image }}" /></li></ul>
-        <ul><li>Item Count: {{ checkoutInfo.itemCount }}</li><li>Order Total: {{ checkoutInfo.itemTotal | currency:"$"}}</li></ul><div><a ng-click="BuyItems()" class="waves-effect waves-light btn-large">Buy</a></div></div></div>`,
+      template: `<div class="white" style="opacity:50%;"><div class="row center-align" ng-controller="checkoutController" style="padding:5px;"><div ng-hide="{{checkoutInfo.itemCount.length === 0}}" class="ng-hide"><br>
+        Item Count: {{ checkoutInfo.itemCount }}<br>
+        Order Total: {{ checkoutInfo.itemTotal | currency:"$"}}<br>
+        <a ng-click="BuyItems()" class="waves-effect waves-light btn-large">Buy</a>
+         <div ng-repeat="image in checkoutInfo.imageURLS track by $index"><div class="collection"><img class="productImg" ng-src="{{ image }}" /></div>
+          </div>
+        </div>`,
       controller: 'checkoutController'
     };
 

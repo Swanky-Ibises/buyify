@@ -6,15 +6,28 @@ html {
   background-size: cover;
 }
 
-.productImg {
-  height: 250px;
-  width: auto;
-  padding: 5px;
+body {
+    margin: auto;
+    width: 80%;
+    padding: 10px;
 }
 
-.product.card.col.s3.ng-scope {
-    padding: 10px;
-    margin: 10px;
+.product.card {
+   height: auto;
+   padding: 5px;
 }
+
+.productImg {
+   padding: 5px;
+   width: 200px;
+   height: 250px;
+}
+
 
 .active { color: white; font-weight: bolder; }
+
+#atc {
+  width: 50%;
+  height: auto;
+  padding: 5px;
+}
