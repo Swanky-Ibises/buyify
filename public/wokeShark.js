@@ -1,15 +1,14 @@
 document.addEventListener("DOMContentLoaded", function(event) {
 
   // console.log('DOCUMENT READY TO PARSE!', 'DATA READY TO TRACK AND SEND!');
-
   //sends events by type and to endpoint
   var wokeSharkMetrics = {},
     event, request, eventType;
 
   //add more endpoints here
 
-  const linkClickEndpoint = "http://wokesharks.herokuapp.com/linkClick";
-  const pageViewEndpoint = "http://wokesharks.herokuapp.com/pageView";
+  const linkClickEndpoint = "https://wokesharks.herokuapp.com/linkClick";
+  const pageViewEndpoint = "https://wokesharks.herokuapp.com/pageView";
 
 
   //Generic Tracking Mechanism
