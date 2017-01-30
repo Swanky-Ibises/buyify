@@ -10,8 +10,8 @@
 
 <body>
   <main>
-    <nav>
-      <div class="nav-wrapper">
+    <nav class="center-align blue-grey darken-4">
+      <div class="center-align nav-wrapper">
         <a href="#" class="brand-logo">Buyify</a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
           <li><a ui-sref="products" ui-sref-active="active">Products</a></li>
@@ -21,11 +21,11 @@
     </nav>
     <ui-view>
       <div class="row center-align" ng-controller="productsController">
-        <div class="col s3" ng-repeat="product in products" class="col s12 m6 l3">
+        <div class="center-align product card col s3" ng-repeat="product in products" class="col s12 m6 l3">
           <img class="productImg circle" ng-src="{{ product.ImageURL }}" />
           <p>{{ product.name }}</p>
           <p>{{ product.Price | currency:"$" }}</p>
-          <a ng-click="addToCart(product.name, product.Price, product.ImageURL)" class="waves-effect waves-light btn-large">Add To Cart</a>
+          <a ng-click="addToCart(product.name, product.Price, product.ImageURL)" class="waves-effect waves-light btn-large teal darken-4">Add To Cart</a>
         </div>
       </div>
     </ui-view>

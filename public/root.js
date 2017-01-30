@@ -2,12 +2,12 @@ var root = angular.module("root", ["productServices", "ui.router"])
   .controller("productsController", ["$scope", "getProducts", function($scope, getProducts) {
 
     getProducts.getProducts().then(function(products) {
-      console.log('product data', products);
+      // console.log('product data', products);
       $scope.products = products;
       return products;
     });
 
-    console.log('scope products', $scope.products);
+    // console.log('scope products', $scope.products);
 
     $scope.addToCart = function(product, price, imageurl) {
       if (!localStorage.getItem('CART')) {
@@ -19,7 +19,7 @@ var root = angular.module("root", ["productServices", "ui.router"])
 
   }]).controller("checkoutController", ["$scope", function($scope) {
 
-    console.log('items in cart', localStorage.getItem('CART'));
+    // console.log('items in cart', localStorage.getItem('CART'));
 
     $scope.checkoutInfo = {
       "imageURLS": [],
@@ -40,8 +40,8 @@ var root = angular.module("root", ["productServices", "ui.router"])
       localStorage.removeItem('CART');
     };
 
-    console.log('checkoutInfo', $scope.checkoutInfo);
-    console.log('checkoutInfo Image URLS', $scope.checkoutInfo.imageURLS);
+    // console.log('checkoutInfo', $scope.checkoutInfo);
+    // console.log('checkoutInfo Image URLS', $scope.checkoutInfo.imageURLS);
 
   }]).config(function($stateProvider) {
 

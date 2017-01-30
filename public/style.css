@@ -1,7 +1,20 @@
+html {
+  background: url(http://all-fashion-news.com/wp-content/uploads/2014/11/A-world-of-luxury-high-end-fashion-all-fashion-news.com_.jpg) no-repeat 50% 50% fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
 .productImg {
-  height: 50%;
+  height: 250px;
   width: auto;
   padding: 5px;
 }
 
-.active { color: blue; font-weight: bolder; }
+.product.card.col.s3.ng-scope {
+    padding: 10px;
+    margin: 10px;
+}
+
+.active { color: white; font-weight: bolder; }
