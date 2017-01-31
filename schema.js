@@ -1,11 +1,21 @@
 const fs = require('fs');
 const mongoose = require('mongoose');
 
-// const connectionURL = process.env.NODE_ENV === 'production' > -1 ?  : "mongodb://localhost/buyifyData";
+console.log('process env', process.env.NODE_ENV);
+
+if (process.env.NODE_ENV === 'production') {
+
+  let connectionURL = "mongodb://heroku_8vct2c3b:atgojuljt0bf8lq8n041i3o9n4@ds137759.mlab.com:37759/heroku_8vct2c3b";
+
+} else {
+
+  let connectionURL = "mongodb://localhost/buyifyData";
+
+};
 
 // console.log('connectionURL', connectionURL);
 
-mongoose.connect("mongodb://heroku_8vct2c3b:atgojuljt0bf8lq8n041i3o9n4@ds137759.mlab.com:37759/heroku_8vct2c3b");
+mongoose.connect(connectionURL);
 
 var userSchema = mongoose.Schema({
   username: String,
@@ -32,7 +42,7 @@ var productModel = mongoose.model('productSchema', productSchema);
 //remove and add fresh data to the product model
 
 productModel.remove({}, function(err) {
-   console.log('productModel removed');
+  console.log('productModel removed');
 });
 
 fs.readFile('product.json', function(err, products) {
@@ -44,8 +54,8 @@ fs.readFile('product.json', function(err, products) {
       "ImageURL": product.ImageURL,
       "Price": product.Price
     }, function(err, newProductAdded) {
-       if (err) throw err;
-       console.log('new Product Added', newProductAdded);
+      if (err) throw err;
+      console.log('new Product Added', newProductAdded);
     });
   });
 });
