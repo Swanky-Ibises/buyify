@@ -5,11 +5,11 @@ console.log('process env', process.env.NODE_ENV);
 
 if (process.env.NODE_ENV === 'production') {
 
-  let connectionURL = "mongodb://heroku_8vct2c3b:atgojuljt0bf8lq8n041i3o9n4@ds137759.mlab.com:37759/heroku_8vct2c3b";
+  const connectionURL = "mongodb://heroku_8vct2c3b:atgojuljt0bf8lq8n041i3o9n4@ds137759.mlab.com:37759/heroku_8vct2c3b";
 
 } else {
 
-  let connectionURL = "mongodb://localhost/buyifyData";
+  const connectionURL = "mongodb://localhost/buyifyData";
 
 };
 
