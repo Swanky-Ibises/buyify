@@ -1,11 +1,11 @@
 const fs = require('fs');
 const mongoose = require('mongoose');
 
-const connectionURL = process.env.NODE_ENV === 'production' > -1 ? "mongodb://heroku_8vct2c3b:atgojuljt0bf8lq8n041i3o9n4@ds137759.mlab.com:37759/heroku_8vct2c3b" : "mongodb://localhost/buyifyData";
+// const connectionURL = process.env.NODE_ENV === 'production' > -1 ?  : "mongodb://localhost/buyifyData";
 
-console.log('connectionURL', connectionURL);
+// console.log('connectionURL', connectionURL);
 
-mongoose.connect(connectionURL);
+mongoose.connect("mongodb://heroku_8vct2c3b:atgojuljt0bf8lq8n041i3o9n4@ds137759.mlab.com:37759/heroku_8vct2c3b");
 
 var userSchema = mongoose.Schema({
   username: String,
