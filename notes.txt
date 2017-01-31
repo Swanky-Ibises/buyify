@@ -1,0 +1,13 @@
+// fs.readFile("product.json", "utf-8", function(err, data) {
+//   JSON.parse(data).forEach(function(prod, idx) {
+//     console.log('prod', prod);
+//     model.productModel.create(prod);
+//   });
+// });
+
+// app.get('/products', function(req, res) {
+//   fs.readFile('product.json', function(err, data) {
+//     if (err) throw err;
+//     res.send(JSON.parse(data));
+//   });
+// });

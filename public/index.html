@@ -24,7 +24,7 @@
 
       <div class="row" ng-controller="productsController">
         <div class="product card col s3" ng-repeat="product in products" class="col s12 m6 l3">
-          <div class="center-align vertical-align">
+          <div id="{{ product.productId }}" class="center-align vertical-align">
           <img class="productImg circle" ng-src="{{ product.ImageURL }}" />
           <p>{{ product.name }}</p>
           <p>{{ product.Price | currency:"$" }}</p>

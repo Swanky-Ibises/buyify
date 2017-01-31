@@ -1,18 +1,26 @@
 document.addEventListener("DOMContentLoaded", function(event) {
 
   // console.log('DOCUMENT READY TO PARSE!', 'DATA READY TO TRACK AND SEND!');
+
+  //configuration (move to object eventually)
+
   //sends events by type and to endpoint
   var wokeSharkMetrics = {},
     event, request, eventType;
 
-  //add more endpoints here
+  //set wokeShark Session
+
+  sessionStorage.setItem("wokeSharkSession", true);
+
+  //add endpoints here
 
   const linkClickEndpoint = "https://wokesharks.herokuapp.com/linkClick";
   const pageViewEndpoint = "https://wokesharks.herokuapp.com/pageView";
 
 
   //Generic Tracking Mechanism
-  wokeSharkMetrics.report = function(eventData, eventType, endpoint) {
+
+  wokeSharkMetrics.report = function(eventData, eventType, endpoint, metaData) {
     event = {};
     event[eventType] = eventData;
     console.log('EVENT BEING SENT TO ENDPOINT', event, endpoint);
@@ -23,6 +31,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   };
 
   //click events
+
   document.body.onclick = function(event) {
     event = event || window.event;
     var target = event.target || event.srcElement;
@@ -35,6 +44,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   };
 
   //hash change events
+
   if ("onhashchange" in window) {
     function currentHash() {
       console.log('location hash', location.hash);
