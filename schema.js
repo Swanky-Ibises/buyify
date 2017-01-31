@@ -1,19 +1,13 @@
 const fs = require('fs');
 const mongoose = require('mongoose');
 
-console.log('process env', process.env.NODE_ENV);
+var connectionURL;
 
 if (process.env.NODE_ENV === 'production') {
-
-  const connectionURL = "mongodb://heroku_8vct2c3b:atgojuljt0bf8lq8n041i3o9n4@ds137759.mlab.com:37759/heroku_8vct2c3b";
-
+   connectionURL = "mongodb://heroku_8vct2c3b:atgojuljt0bf8lq8n041i3o9n4@ds137759.mlab.com:37759/heroku_8vct2c3b";
 } else {
-
-  const connectionURL = "mongodb://localhost/buyifyData";
-
-};
-
-// console.log('connectionURL', connectionURL);
+   connectionURL = "mongodb://localhost/buyifyData";
+}
 
 mongoose.connect(connectionURL);
 
@@ -38,8 +32,6 @@ var productSchema = mongoose.Schema({
 var userModel = mongoose.model('userSchema', userSchema);
 var orderModel = mongoose.model('orderSchema', orderSchema);
 var productModel = mongoose.model('productSchema', productSchema);
-
-//remove and add fresh data to the product model
 
 productModel.remove({}, function(err) {
   console.log('productModel removed');
