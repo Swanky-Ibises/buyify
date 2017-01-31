@@ -14,8 +14,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
   //add endpoints here
 
-  const linkClickEndpoint = "https://wokesharks.herokuapp.com/linkClick";
-  const pageViewEndpoint = "https://wokesharks.herokuapp.com/pageView";
+  const linkClickEndpoint = "https://wokesharkapp.herokuapp.com/linkClick";
+  const pageViewEndpoint = "https://wokesharkapp.herokuapp.com/pageView";
 
 
   //Generic Tracking Mechanism
