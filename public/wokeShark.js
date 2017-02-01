@@ -51,7 +51,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
       if (!location.hash) {
         wokeSharkMetrics.report(document.title, "title", pageViewEndpoint);
       } else {
-        wokeSharkMetrics.report(location.hash, "title", pageViewEndpoint);
+        var locationNoHash = location.hash.replace(/[^\w\s]/gi, '');
+        console.log('locationNoHash', locationNoHash);
+        wokeSharkMetrics.report(locationNoHash, "title", pageViewEndpoint);
       }
     }
   }
