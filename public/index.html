@@ -6,6 +6,11 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
   <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script
+  src="https://code.jquery.com/jquery-3.1.1.min.js"
+  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+  crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
 </head>
 <body>
   <main>
@@ -28,7 +33,7 @@
           <img class="productImg circle" ng-src="{{ product.ImageURL }}" />
           <p>{{ product.name }}</p>
           <p>{{ product.Price | currency:"$" }}</p>
-          <a id="atc" ng-click="addToCart(product.name, product.Price, product.ImageURL)" class="waves-effect waves-light btn-large teal darken-4">Add To Cart</a>
+          <a id="atc" ng-click="addToCart(product.name, product.Price, product.ImageURL)" class="waves-effect waves-light btn-large">Add To Cart</a>
           </div>
         </div>
       </div>

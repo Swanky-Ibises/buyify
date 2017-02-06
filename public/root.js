@@ -10,11 +10,13 @@ var root = angular.module("root", ["productServices", "ui.router"])
     // console.log('scope products', $scope.products);
 
     $scope.addToCart = function(product, price, imageurl) {
+      console.log('addToCart');
       if (!localStorage.getItem('CART')) {
         localStorage.setItem('CART', product + "|" + price + "|" + imageurl);
       } else {
         localStorage.setItem('CART', localStorage.getItem('CART') + "," + product + "|" + price + "|" + imageurl);
       }
+      Materialize.toast('Added to Cart!', 1000);
     };
 
   }]).controller("checkoutController", ["$scope", function($scope) {
