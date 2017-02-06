@@ -58,12 +58,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
     }
   }
 
-  //product events
-
-  //purchase events
-
-  //user events
-
 
   //listen for hash change events
   window.onhashchange = currentHash;

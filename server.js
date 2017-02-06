@@ -22,6 +22,9 @@ app.get('/orders', function(req, res) {
   });
 });
 
+//The products endpoint is the only endpoint we are using for to populate UI
+//The remaining endpoints can be built out as you see fit
+
 app.get('/products', function(req, res) {
   model.productModel.find({}, function(err, products) {
     res.send(products);

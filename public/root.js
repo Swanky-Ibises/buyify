@@ -1,6 +1,7 @@
 var root = angular.module("root", ["productServices", "ui.router"])
   .controller("productsController", ["$scope", "getProducts", function($scope, getProducts) {
 
+    //populating products from products endpoint.
     getProducts.getProducts().then(function(products) {
       // console.log('product data', products);
       $scope.products = products;
@@ -10,6 +11,8 @@ var root = angular.module("root", ["productServices", "ui.router"])
     // console.log('scope products', $scope.products);
 
     $scope.addToCart = function(product, price, imageurl) {
+
+      //Using local storage to simulate an add to cart experience
       console.log('addToCart');
       if (!localStorage.getItem('CART')) {
         localStorage.setItem('CART', product + "|" + price + "|" + imageurl);
@@ -20,6 +23,8 @@ var root = angular.module("root", ["productServices", "ui.router"])
     };
 
   }]).controller("checkoutController", ["$scope", function($scope) {
+
+    //Using local storage to simulate a checkout experience
 
     // console.log('items in cart', localStorage.getItem('CART'));
 
@@ -46,6 +51,8 @@ var root = angular.module("root", ["productServices", "ui.router"])
     // console.log('checkoutInfo Image URLS', $scope.checkoutInfo.imageURLS);
 
   }]).config(function($stateProvider) {
+
+    //This routing is using UI router
 
     var productState = {
       name: 'products',
