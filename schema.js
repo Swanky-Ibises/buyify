@@ -47,7 +47,7 @@ fs.readFile('product.json', function(err, products) {
       "Price": product.Price
     }, function(err, newProductAdded) {
       if (err) throw err;
-      console.log('new Product Added', newProductAdded);
+      //console.log('new Product Added', newProductAdded);
     });
   });
 });

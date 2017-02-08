@@ -5,7 +5,7 @@ const bodyparser = require('body-parser');
 const cors = require('cors');
 const model = require('./schema.js');
 
-app.use(bodyparser());
+app.use(bodyparser.json());
 app.use(cors());
 
 app.use(express.static('public'));
