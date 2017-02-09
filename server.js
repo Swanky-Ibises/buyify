@@ -4,9 +4,18 @@ const path = require('path');
 const bodyparser = require('body-parser');
 const cors = require('cors');
 const model = require('./schema.js');
+const session = require('express-session');
 
 app.use(bodyparser.json());
 app.use(cors());
+
+app.use(session({
+  genid: function(req) {
+    return genuuid() // use UUIDs for session IDs
+  },
+  secret: 'master of my domain',
+  cookie: {maxAge: 31536000000}
+}));
 
 app.use(express.static('public'));
 
