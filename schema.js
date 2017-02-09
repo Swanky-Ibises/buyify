@@ -4,7 +4,8 @@ const mongoose = require('mongoose');
 var connectionURL;
 
 if (process.env.NODE_ENV === 'production') {
-   connectionURL = "mongodb://heroku_8vct2c3b:atgojuljt0bf8lq8n041i3o9n4@ds137759.mlab.com:37759/heroku_8vct2c3b";
+   connectionURL = process.env.MONGODB_URI;
+   console.log('the process env uri is', process.env.MONGODB_URI);
 } else {
    connectionURL = "mongodb://localhost/buyifyData";
 }
