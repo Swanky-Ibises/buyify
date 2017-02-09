@@ -27,6 +27,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
     request = new XMLHttpRequest();
     request.open("POST", endpoint, true);
     request.setRequestHeader('Content-Type', 'application/json');
+    request.setRequestHeader('access-control-allow-origin', '*');
+    request.setRequestHeader('access-control-allow-methods', 'GET, POST, PUT, DELETE, OPTIONS');
     request.send(JSON.stringify(event));
   };
 
@@ -39,6 +41,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
     console.log('event target', event.target);
     console.log('event target inner text', event.target.text);
     if (event.target.text) {
+      //event type = url, eventData = "Add to card"
+      //how to pass product name back to server?
       wokeSharkMetrics.report(event.target.text, "url", linkClickEndpoint);
     }
   };
@@ -49,6 +53,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     function currentHash() {
       console.log('location hash', location.hash);
       if (!location.hash) {
+        //event type = title , eventData = "Buyify"
         wokeSharkMetrics.report(document.title, "title", pageViewEndpoint);
       } else {
         var locationNoHash = location.hash.replace(/[^\w\s]/gi, '');
