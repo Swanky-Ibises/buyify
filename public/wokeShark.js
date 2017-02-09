@@ -29,6 +29,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     request.setRequestHeader('Content-Type', 'application/json');
     request.setRequestHeader('Access-Control-Allow-Origin', '*');
     request.setRequestHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    request.setRequestHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
     request.send(JSON.stringify(event));
   };
 
