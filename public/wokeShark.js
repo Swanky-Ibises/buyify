@@ -1,5 +1,19 @@
 document.addEventListener("DOMContentLoaded", function(event) {
-
+  console.log('sessionId', sessionStorage)
+  var locationNoHash = location.hash.replace(/[^\w\s]/gi, '');
+  console.log('new location', locationNoHash)
+  console.log(new Date());
+  if (!sessionStorage.sessionId) {
+    $.ajax({
+      type: 'GET',
+      url: 'http://localhost:3000/session',
+      success: function(data) {
+        sessionStorage.setItem('location', locationNoHash);
+        sessionStorage.setItem('sessionId', data);
+        sessionStorage.setItem('dataStart', new Date());
+      }
+    });
+  }
   // console.log('DOCUMENT READY TO PARSE!', 'DATA READY TO TRACK AND SEND!');
 
   //configuration (move to object eventually)
