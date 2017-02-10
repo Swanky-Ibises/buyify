@@ -4,16 +4,18 @@ const path = require('path');
 const bodyparser = require('body-parser');
 const cors = require('cors');
 const model = require('./schema.js');
-const session = require('express-session');
-let sessionId = 0;
+// const session = require('express-session');
+
 app.use(bodyparser.json());
 app.use(cors());
 
-app.use(session({
-  id: sessionId,
-  secret: 'master of my domain',
-  cookie: {maxAge: 31536000000}
-}));
+// app.use(session({
+//   genid: function(req) {
+//     return genuuid() // use UUIDs for session IDs
+//   },
+//   secret: 'master of my domain',
+//   cookie: {maxAge: 31536000000}
+// }));
 
 app.use(express.static('public'));
 
@@ -36,13 +38,6 @@ app.get('/products', function(req, res) {
   model.productModel.find({}, function(err, products) {
     res.send(products);
   });
-});
-
-app.get('/session', function(req, res) {
-  var sess = req.session;
-  // console.log('in session', sess.genid);
-  console.log('id', sess.id)
-  res.send(JSON.stringify(sess.id));
 });
 
 app.post('/product', function(req, res) {
