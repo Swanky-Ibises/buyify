@@ -87,9 +87,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
         // console.log('locationNoHash', locationNoHash);
         wokeSharkMetrics.report(locationNoHash, "title", pageViewEndpoint);
       }
+      //Post the time difference to analytics
       postTimeDifference(window.firstDate, location.hostname, window.thisLocation);
       window.thisLocation = location.hash.replace(/[^\w\s]/gi, '') || 'homepage';
-
     }
   }
 
