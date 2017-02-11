@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function(event) {
+
   //This function is just for making post requests
   var postRequest = function(postData, endpoint) {
     request.open('POST', endpoint, true);
@@ -21,6 +22,16 @@ document.addEventListener("DOMContentLoaded", function(event) {
     window.firstDate = new Date();
   }
 
+
+  //add endpoints here
+
+  const linkClickEndpoint = "https://swanky-ibises-analytics.herokuapp.com/linkClick";
+  const pageViewEndpoint = "https://swanky-ibises-analytics.herokuapp.com/pageView";
+  const pageTimeEndpoint = "http://127.0.0.1:8080/pagetime";
+  const addressEndpoint = `http://127.0.0.1:8080/${location.hostname}/address`
+
+
+  //Get request for IP address of client
   $.get('http://ipinfo.io', function(response) {
       $.get('http://freegeoip.net/json/' + response.ip, function(response) {
         if (response.country_code === 'US') {
@@ -29,10 +40,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
         console.log('location data', response);
         console.log('city here', cityUS || response.city);
         var postData = {
+          ip: response.ip,
           city: cityUS || response.city,
           country: response.country_name
         }
         console.log('postData', postData);
+        postRequest(postData, addressEndpoint);
       });
   }, 'jsonp');
 
@@ -55,11 +68,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
   sessionStorage.setItem("wokeSharkSession", true);
 
-  //add endpoints here
-
-  const linkClickEndpoint = "https://swanky-ibises-analytics.herokuapp.com/linkClick";
-  const pageViewEndpoint = "https://swanky-ibises-analytics.herokuapp.com/pageView";
-  const pageTimeEndpoint = "http://127.0.0.1:8080/pagetime";
 
 
   //Generic Tracking Mechanism
