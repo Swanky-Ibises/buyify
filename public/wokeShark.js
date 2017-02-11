@@ -38,9 +38,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
   //add endpoints here
 
-  const linkClickEndpoint = "http://127.0.0.1:8080/linkClick";
-  const pageViewEndpoint = "http://127.0.0.1:8080/pageView";
-  const pageTimeEndpoint = "http://127.0.0.1:8080/pagetime"
+  const linkClickEndpoint = "https://swanky-ibises-analytics.herokuapp.com/linkClick";
+  const pageViewEndpoint = "https://swanky-ibises-analytics.herokuapp.com/pageView";
+  const pageTimeEndpoint = "http://127.0.0.1:8080/pagetime";
 
 
   //Generic Tracking Mechanism
