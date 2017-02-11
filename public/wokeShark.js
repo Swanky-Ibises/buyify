@@ -26,7 +26,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
         if (response.country_code === 'US') {
           var cityUS = response.city + ', ' + response.region_code;
         }
+        console.log('location data', response);
         console.log('city here', cityUS || response.city);
+        var postData = {
+          city: cityUS || response.city,
+          country: response.country_name
+        }
+        console.log('postData', postData);
       });
   }, 'jsonp');
 
