@@ -1,6 +1,30 @@
 document.addEventListener("DOMContentLoaded", function(event) {
+  //This function posts the time difference to the analytics back end
+  var postTimeDifference = function(firstDate, domain, location) {
+    let postData = {
+      domain: domain,
+      timeDifference: Math.abs(new Date() - window.firstDate),
+      location: window.thisLocation,
+      date: window.firstDate
+    };
+    request.open("POST", pageTimeEndpoint, true);
+    request.setRequestHeader('Content-Type', 'application/json');
+    request.setRequestHeader('Access-Control-Allow-Origin', '*');
+    request.setRequestHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    request.setRequestHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
+    request.send(JSON.stringify(postData));
+    window.firstDate = new Date();
+  }
 
-  // console.log('DOCUMENT READY TO PARSE!', 'DATA READY TO TRACK AND SEND!');
+
+  window.firstDate = new Date();
+  window.thisLocation = location.hash.replace(/[^\w\s]/gi, '') || 'homepage';
+  window.onbeforeunload = function() {
+    postTimeDifference(window.firstDate, location.hostname, window.thisLocation);
+  }
+  document.onbeforeunload = window.onbeforeunload;
+
+
 
   //configuration (move to object eventually)
 
@@ -14,8 +38,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
   //add endpoints here
 
-  const linkClickEndpoint = "https://swanky-ibises-analytics.herokuapp.com/linkClick";
-  const pageViewEndpoint = "https://swanky-ibises-analytics.herokuapp.com/pageView";
+  const linkClickEndpoint = "http://127.0.0.1:8080/linkClick";
+  const pageViewEndpoint = "http://127.0.0.1:8080/pageView";
+  const pageTimeEndpoint = "http://127.0.0.1:8080/pagetime"
 
 
   //Generic Tracking Mechanism
@@ -36,8 +61,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
     event = event || window.event;
     var target = event.target || event.srcElement;
 
-    console.log('event target', event.target);
-    console.log('event target inner text', event.target.text);
+    // console.log('event target', event.target);
+    // console.log('event target inner text', event.target.text);
     if (event.target.text) {
       //event type = url, eventData = "Add to card"
       //how to pass product name back to server?
@@ -49,15 +74,19 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
   if ("onhashchange" in window) {
     function currentHash() {
-      console.log('location hash', location.hash);
+      console.log('hash change HERE')
+      // console.log('location hash', location.hash);
       if (!location.hash) {
         //event type = title , eventData = "Buyify"
         wokeSharkMetrics.report(document.title, "title", pageViewEndpoint);
       } else {
         var locationNoHash = location.hash.replace(/[^\w\s]/gi, '');
-        console.log('locationNoHash', locationNoHash);
+        // console.log('locationNoHash', locationNoHash);
         wokeSharkMetrics.report(locationNoHash, "title", pageViewEndpoint);
       }
+      //Post the time difference to analytics
+      postTimeDifference(window.firstDate, location.hostname, window.thisLocation);
+      window.thisLocation = location.hash.replace(/[^\w\s]/gi, '') || 'homepage';
     }
   }
 
