@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", function(event) {
-  window.firstDate = new Date();
-  window.thisLocation = location.hash.replace(/[^\w\s]/gi, '') || 'homepage';
+  //This function posts the time difference to the analytics back end
   var postTimeDifference = function(firstDate, domain, location) {
     let postData = {
       domain: domain,
@@ -16,25 +15,16 @@ document.addEventListener("DOMContentLoaded", function(event) {
     request.send(JSON.stringify(postData));
     window.firstDate = new Date();
   }
+
+
+  window.firstDate = new Date();
+  window.thisLocation = location.hash.replace(/[^\w\s]/gi, '') || 'homepage';
   window.onbeforeunload = function() {
     postTimeDifference(window.firstDate, location.hostname, window.thisLocation);
   }
   document.onbeforeunload = window.onbeforeunload;
-  document.focus = window.focus;
-  // if (!sessionStorage.sessionId) {
-  //   $.ajax({
-  //     type: 'GET',
-  //     url: 'http://localhost:3000/session',
-  //     success: function(data) {
-  //       sessionStorage.setItem('location', locationNoHash);
-  //       sessionStorage.setItem('sessionId', data);
-  //       sessionStorage.setItem('dateStart', new Date());
-  //       console.log('hello', typeof sessionStorage.dateStart)
-  //       console.log(sessionStorage);
-  //     }
-  //   });
-  // }
-  // console.log('DOCUMENT READY TO PARSE!', 'DATA READY TO TRACK AND SEND!');
+
+
 
   //configuration (move to object eventually)
 
