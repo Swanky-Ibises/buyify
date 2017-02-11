@@ -21,14 +21,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
     window.firstDate = new Date();
   }
 
-  // $.get('http://ipinfo.io', function(response) {
-  //     $.get('http://freegeoip.net/json/' + response.ip, function(response) {
-  //       if (response.country_code === 'US') {
-  //         var cityUS = response.city + ', ' + response.region_code;
-  //       }
-  //       console.log('city here', cityUS || response.city);
-  //     });
-  // }, 'jsonp');
+  $.get('http://ipinfo.io', function(response) {
+      $.get('http://freegeoip.net/json/' + response.ip, function(response) {
+        if (response.country_code === 'US') {
+          var cityUS = response.city + ', ' + response.region_code;
+        }
+        console.log('city here', cityUS || response.city);
+      });
+  }, 'jsonp');
 
   window.firstDate = new Date();
   window.thisLocation = location.hash.replace(/[^\w\s]/gi, '') || 'homepage';
