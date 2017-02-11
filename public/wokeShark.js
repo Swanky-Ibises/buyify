@@ -1,4 +1,14 @@
 document.addEventListener("DOMContentLoaded", function(event) {
+  //This function is just for making post requests
+  var postRequest = function(postData, endpoint) {
+    request.open('POST', endpoint, true);
+    request.setRequestHeader('Content-Type', 'application/json');
+    request.setRequestHeader('Access-Control-Allow-Origin', '*');
+    request.setRequestHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    request.setRequestHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
+    request.send(JSON.stringify(postData));
+  }
+
   //This function posts the time difference to the analytics back end
   var postTimeDifference = function(firstDate, domain, location) {
     let postData = {
@@ -7,15 +17,18 @@ document.addEventListener("DOMContentLoaded", function(event) {
       location: window.thisLocation,
       date: window.firstDate
     };
-    request.open("POST", pageTimeEndpoint, true);
-    request.setRequestHeader('Content-Type', 'application/json');
-    request.setRequestHeader('Access-Control-Allow-Origin', '*');
-    request.setRequestHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-    request.setRequestHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
-    request.send(JSON.stringify(postData));
+    postRequest(postData, pageTimeEndpoint);
     window.firstDate = new Date();
   }
 
+  // $.get('http://ipinfo.io', function(response) {
+  //     $.get('http://freegeoip.net/json/' + response.ip, function(response) {
+  //       if (response.country_code === 'US') {
+  //         var cityUS = response.city + ', ' + response.region_code;
+  //       }
+  //       console.log('city here', cityUS || response.city);
+  //     });
+  // }, 'jsonp');
 
   window.firstDate = new Date();
   window.thisLocation = location.hash.replace(/[^\w\s]/gi, '') || 'homepage';
