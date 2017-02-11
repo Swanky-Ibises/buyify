@@ -1,6 +1,26 @@
 document.addEventListener("DOMContentLoaded", function(event) {
+  window.firstDate = new Date();
   window.thisLocation = location.hash.replace(/[^\w\s]/gi, '') || 'homepage';
-  var firstDate = new Date();
+  var postTimeDifference = function(firstDate, domain, location) {
+    let postData = {
+      domain: domain,
+      timeDifference: Math.abs(new Date() - window.firstDate),
+      location: window.thisLocation,
+      date: window.firstDate
+    };
+    request.open("POST", pageTimeEndpoint, true);
+    request.setRequestHeader('Content-Type', 'application/json');
+    request.setRequestHeader('Access-Control-Allow-Origin', '*');
+    request.setRequestHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    request.setRequestHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
+    request.send(JSON.stringify(postData));
+    window.firstDate = new Date();
+  }
+  window.onbeforeunload = function() {
+    postTimeDifference(window.firstDate, location.hostname, window.thisLocation);
+  }
+  document.onbeforeunload = window.onbeforeunload;
+  document.focus = window.focus;
   // if (!sessionStorage.sessionId) {
   //   $.ajax({
   //     type: 'GET',
@@ -28,9 +48,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
   //add endpoints here
 
-  const linkClickEndpoint = "https://swanky-ibises-analytics.herokuapp.com/linkClick";
-  const pageViewEndpoint = "https://swanky-ibises-analytics.herokuapp.com/pageView";
-  const pageTimeEndpoint = "http://127.0.0.1:8000/pagetime"
+  const linkClickEndpoint = "http://127.0.0.1:8080/linkClick";
+  const pageViewEndpoint = "http://127.0.0.1:8080/pageView";
+  const pageTimeEndpoint = "http://127.0.0.1:8080/pagetime"
 
 
   //Generic Tracking Mechanism
@@ -83,19 +103,24 @@ document.addEventListener("DOMContentLoaded", function(event) {
         // };
         // console.log('post data here', postData)
       }
-      var postData = {
-        timeDifference: Math.abs(new Date() - firstDate),
-        location: window.thisLocation
-      }
-      console.log(JSON.stringify(postData))
-      firstDate = new Date();
+      postTimeDifference(window.firstDate, location.hostname, window.thisLocation);
       window.thisLocation = location.hash.replace(/[^\w\s]/gi, '') || 'homepage';
-      request.open("POST", pageTimeEndpoint, true);
-      request.setRequestHeader('Content-Type', 'application/json');
-      request.setRequestHeader('Access-Control-Allow-Origin', '*');
-      request.setRequestHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-      request.setRequestHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
-      request.send(JSON.stringify(postData));
+      // console.log('host name ', location.hostname)
+      // console.log('hello', typeof firstDate)
+      // var postData = {
+      //   domain: location.hostname,
+      //   timeDifference: Math.abs(new Date() - firstDate),
+      //   location: window.thisLocation,
+      //   date: firstDate
+      // }
+      // firstDate = new Date();
+      // window.thisLocation = location.hash.replace(/[^\w\s]/gi, '') || 'homepage';
+      // request.open("POST", pageTimeEndpoint, true);
+      // request.setRequestHeader('Content-Type', 'application/json');
+      // request.setRequestHeader('Access-Control-Allow-Origin', '*');
+      // request.setRequestHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+      // request.setRequestHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
+      // request.send(JSON.stringify(postData));
 
     }
   }
