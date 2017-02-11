@@ -86,31 +86,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
         var locationNoHash = location.hash.replace(/[^\w\s]/gi, '');
         // console.log('locationNoHash', locationNoHash);
         wokeSharkMetrics.report(locationNoHash, "title", pageViewEndpoint);
-        //code to get time on page
-        // var postData = {
-        //   timeSpent: Math.abs(new Date() - sessionStorage.dateStart),
-        //   location: sessionStorage.location
-        // };
-        // console.log('post data here', postData)
       }
       postTimeDifference(window.firstDate, location.hostname, window.thisLocation);
       window.thisLocation = location.hash.replace(/[^\w\s]/gi, '') || 'homepage';
-      // console.log('host name ', location.hostname)
-      // console.log('hello', typeof firstDate)
-      // var postData = {
-      //   domain: location.hostname,
-      //   timeDifference: Math.abs(new Date() - firstDate),
-      //   location: window.thisLocation,
-      //   date: firstDate
-      // }
-      // firstDate = new Date();
-      // window.thisLocation = location.hash.replace(/[^\w\s]/gi, '') || 'homepage';
-      // request.open("POST", pageTimeEndpoint, true);
-      // request.setRequestHeader('Content-Type', 'application/json');
-      // request.setRequestHeader('Access-Control-Allow-Origin', '*');
-      // request.setRequestHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-      // request.setRequestHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
-      // request.send(JSON.stringify(postData));
 
     }
   }
