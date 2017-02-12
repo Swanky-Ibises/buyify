@@ -1,6 +1,62 @@
 document.addEventListener("DOMContentLoaded", function(event) {
 
-  // console.log('DOCUMENT READY TO PARSE!', 'DATA READY TO TRACK AND SEND!');
+  //This function is just for making post requests
+  var postRequest = function(postData, endpoint) {
+    request.open('POST', endpoint, true);
+    request.setRequestHeader('Content-Type', 'application/json');
+    request.setRequestHeader('Access-Control-Allow-Origin', '*');
+    request.setRequestHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    request.setRequestHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
+    request.send(JSON.stringify(postData));
+  }
+
+  //This function posts the time difference to the analytics back end
+  var postTimeDifference = function(firstDate, domain, location) {
+    let postData = {
+      domain: domain,
+      timeDifference: Math.abs(new Date() - window.firstDate),
+      location: window.thisLocation,
+      date: window.firstDate
+    };
+    postRequest(postData, pageTimeEndpoint);
+    window.firstDate = new Date();
+  }
+
+
+  //add endpoints here
+
+  const linkClickEndpoint = "https://swanky-ibises-analytics.herokuapp.com/linkClick";
+  const pageViewEndpoint = "https://swanky-ibises-analytics.herokuapp.com/pageView";
+  const pageTimeEndpoint = "http://127.0.0.1:8080/pagetime";
+  const addressEndpoint = `http://127.0.0.1:8080/${location.hostname}/address`
+
+
+  //Get request for IP address of client
+  $.get('http://ipinfo.io', function(response) {
+      $.get('http://freegeoip.net/json/' + response.ip, function(response) {
+        if (response.country_code === 'US') {
+          var cityUS = response.city + ', ' + response.region_code;
+        }
+        console.log('location data', response);
+        console.log('city here', cityUS || response.city);
+        var postData = {
+          ip: response.ip,
+          city: cityUS || response.city,
+          country: response.country_name
+        }
+        console.log('postData', postData);
+        postRequest(postData, addressEndpoint);
+      });
+  }, 'jsonp');
+
+  window.firstDate = new Date();
+  window.thisLocation = location.hash.replace(/[^\w\s]/gi, '') || 'homepage';
+  window.onbeforeunload = function() {
+    postTimeDifference(window.firstDate, location.hostname, window.thisLocation);
+  }
+  document.onbeforeunload = window.onbeforeunload;
+
+
 
   //configuration (move to object eventually)
 
@@ -12,10 +68,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
   sessionStorage.setItem("wokeSharkSession", true);
 
-  //add endpoints here
-
-  const linkClickEndpoint = "https://swanky-ibises-analytics.herokuapp.com/linkClick";
-  const pageViewEndpoint = "https://swanky-ibises-analytics.herokuapp.com/pageView";
 
 
   //Generic Tracking Mechanism
@@ -36,8 +88,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
     event = event || window.event;
     var target = event.target || event.srcElement;
 
-    console.log('event target', event.target);
-    console.log('event target inner text', event.target.text);
+    // console.log('event target', event.target);
+    // console.log('event target inner text', event.target.text);
     if (event.target.text) {
       //event type = url, eventData = "Add to card"
       //how to pass product name back to server?
@@ -49,15 +101,19 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
   if ("onhashchange" in window) {
     function currentHash() {
-      console.log('location hash', location.hash);
+      console.log('hash change HERE')
+      // console.log('location hash', location.hash);
       if (!location.hash) {
         //event type = title , eventData = "Buyify"
         wokeSharkMetrics.report(document.title, "title", pageViewEndpoint);
       } else {
         var locationNoHash = location.hash.replace(/[^\w\s]/gi, '');
-        console.log('locationNoHash', locationNoHash);
+        // console.log('locationNoHash', locationNoHash);
         wokeSharkMetrics.report(locationNoHash, "title", pageViewEndpoint);
       }
+      //Post the time difference to analytics
+      postTimeDifference(window.firstDate, location.hostname, window.thisLocation);
+      window.thisLocation = location.hash.replace(/[^\w\s]/gi, '') || 'homepage';
     }
   }
 
