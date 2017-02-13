@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function(event) {
-  var domainName = 'buyify';
+  var domainName = 'swankbuyify.herokuapp.com';
   var analyticsURL = 'https://swanky-ibises-analytics.herokuapp.com'
   //This function is just for making post requests
   request = new XMLHttpRequest();
