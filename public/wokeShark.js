@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function(event) {
 
   //This function is just for making post requests
+  console.log('process.ev', process.env.DOMAIN)
   request = new XMLHttpRequest();
   var postRequest = function(postData, endpoint) {
     request.open('POST', endpoint, true);
@@ -27,6 +28,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   var postPageView = function(page) {
     console.log('page here', page);
     let postData = {
+      domain: window.location.hostname,
       title: page
     }
     postRequest(postData, pageViewEndpoint);
