@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function(event) {
   var domainName = 'buyify';
-  var analyticsURL = 'http://127.0.0.1:8080'
+  var analyticsURL = 'https://swanky-ibises-analytics.herokuapp.com'
   //This function is just for making post requests
   request = new XMLHttpRequest();
   var postRequest = function(postData, endpoint) {
