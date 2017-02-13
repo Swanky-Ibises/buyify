@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", function(event) {
-
+  var domainName = 'buyify';
+  var analyticsURL = 'http://127.0.0.1:8080'
   //This function is just for making post requests
   request = new XMLHttpRequest();
   var postRequest = function(postData, endpoint) {
@@ -15,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   var postTimeDifference = function(firstDate, domain, location, newLocation) {
     let postData = {
       newLocation,
-      domain,
+      domain: domainName,
       timeDifference: Math.abs(new Date() - window.firstDate),
       location: window.thisLocation,
       date: window.firstDate
@@ -27,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   var postPageView = function(page) {
     console.log('page here', page);
     let postData = {
-      domain: window.location.hostname,
+      domain: domainName,
       title: page
     }
     postRequest(postData, pageViewEndpoint);
@@ -35,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
   var postLinkClick = function(link) {
     let postData = {
-      domain: window.location.hostname,
+      domain: domainName,
       url: link
     }
     postRequest(postData, linkClickEndpoint);
@@ -44,10 +45,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
   //add endpoints here
 
-  const linkClickEndpoint = 'https://swanky-ibises-analytics.herokuapp.com/linkClick';
-  const pageViewEndpoint = "https://swanky-ibises-analytics.herokuapp.com/pageView";
-  const pageTimeEndpoint = "https://swanky-ibises-analytics.herokuapp.com/pagetime";
-  const addressEndpoint = `https://swanky-ibises-analytics.herokuapp.com/${location.hostname}/address`
+  const linkClickEndpoint = `${analyticsURL}/linkClick`;
+  const pageViewEndpoint = `${analyticsURL}/pageView`;
+  const pageTimeEndpoint = `${analyticsURL}/pagetime`;
+  const addressEndpoint = `${analyticsURL}/${domainName}/address`
 
 
   //Get request for IP address of client
