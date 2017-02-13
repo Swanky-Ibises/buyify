@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function(event) {
 
   //This function is just for making post requests
+  request = new XMLHttpRequest();
   var postRequest = function(postData, endpoint) {
     request.open('POST', endpoint, true);
     request.setRequestHeader('Content-Type', 'application/json');
@@ -11,9 +12,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
   }
 
   //This function posts the time difference to the analytics back end
-  var postTimeDifference = function(firstDate, domain, location) {
+  var postTimeDifference = function(firstDate, domain, location, newLocation) {
     let postData = {
-      domain: domain,
+      newLocation,
+      domain,
       timeDifference: Math.abs(new Date() - window.firstDate),
       location: window.thisLocation,
       date: window.firstDate
@@ -22,11 +24,27 @@ document.addEventListener("DOMContentLoaded", function(event) {
     window.firstDate = new Date();
   }
 
+  var postPageView = function(page) {
+    console.log('page here', page);
+    let postData = {
+      title: page
+    }
+    postRequest(postData, pageViewEndpoint);
+  }
+
+  var postLinkClick = function(link) {
+    let postData = {
+      domain: window.location.hostname,
+      url: link
+    }
+    postRequest(postData, linkClickEndpoint);
+  }
+
 
   //add endpoints here
 
-  const linkClickEndpoint = "https://swanky-ibises-analytics.herokuapp.com/linkClick";
-  const pageViewEndpoint = "https://swanky-ibises-analytics.herokuapp.com/pageView";
+  const linkClickEndpoint = 'http://127.0.0.1:8080/linkClick';
+  const pageViewEndpoint = "http://127.0.0.1:8080/pageView";
   const pageTimeEndpoint = "http://127.0.0.1:8080/pagetime";
   const addressEndpoint = `http://127.0.0.1:8080/${location.hostname}/address`
 
@@ -37,8 +55,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
         if (response.country_code === 'US') {
           var cityUS = response.city + ', ' + response.region_code;
         }
-        console.log('location data', response);
-        console.log('city here', cityUS || response.city);
+        // console.log('location data', response);
+        // console.log('city here', cityUS || response.city);
         var postData = {
           ip: response.ip,
           city: cityUS || response.city,
@@ -76,9 +94,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
     event = {};
     event[eventType] = eventData;
     console.log('EVENT BEING SENT TO ENDPOINT', event, endpoint);
-    request = new XMLHttpRequest();
     request.open("POST", endpoint, true);
     request.setRequestHeader('Content-Type', 'application/json');
+    request.setRequestHeader('Access-Control-Allow-Origin', '*');
+    request.setRequestHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    request.setRequestHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
     request.send(JSON.stringify(event));
   };
 
@@ -93,7 +113,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     if (event.target.text) {
       //event type = url, eventData = "Add to card"
       //how to pass product name back to server?
-      wokeSharkMetrics.report(event.target.text, "url", linkClickEndpoint);
+      postLinkClick(event.target.text);
     }
   };
 
@@ -101,19 +121,23 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
   if ("onhashchange" in window) {
     function currentHash() {
-      console.log('hash change HERE')
+      // console.log('hash change HERE')
       // console.log('location hash', location.hash);
-      if (!location.hash) {
-        //event type = title , eventData = "Buyify"
-        wokeSharkMetrics.report(document.title, "title", pageViewEndpoint);
-      } else {
-        var locationNoHash = location.hash.replace(/[^\w\s]/gi, '');
-        // console.log('locationNoHash', locationNoHash);
-        wokeSharkMetrics.report(locationNoHash, "title", pageViewEndpoint);
-      }
+      // if (!location.hash) {
+      //   //event type = title , eventData = "Buyify"
+      //   console.log('SHOULD REPORT PAGEVIEW HERE')
+      //   postPageView('homepage');
+      // } else {
+      //   var locationNoHash = location.hash.replace(/[^\w\s]/gi, '');
+      //   // console.log('locationNoHash', locationNoHash);
+      //   console.log('SHOULD REPORT PAGEVIEW HERE')
+      //   postPageView(locationNoHash);
+      // }
+      // postPageView(location.hash.replace(/[^\w\s]/gi, '') || 'homepage');
       //Post the time difference to analytics
-      postTimeDifference(window.firstDate, location.hostname, window.thisLocation);
-      window.thisLocation = location.hash.replace(/[^\w\s]/gi, '') || 'homepage';
+      var newLocation = location.hash.replace(/[^\w\s]/gi, '') || 'homepage';
+      postTimeDifference(window.firstDate, location.hostname, window.thisLocation, newLocation);
+      window.thisLocation = newLocation;
     }
   }
 
