@@ -99,7 +99,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
     request.setRequestHeader('Access-Control-Allow-Origin', '*');
     request.setRequestHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
     request.setRequestHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
-    console.log('REPORT HERE');
     request.send(JSON.stringify(event));
   };
 
