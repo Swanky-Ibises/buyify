@@ -44,10 +44,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
   //add endpoints here
 
-  const linkClickEndpoint = 'http://127.0.0.1:8080/linkClick';
-  const pageViewEndpoint = "http://127.0.0.1:8080/pageView";
-  const pageTimeEndpoint = "http://127.0.0.1:8080/pagetime";
-  const addressEndpoint = `http://127.0.0.1:8080/${location.hostname}/address`
+  const linkClickEndpoint = 'https://swanky-ibises-analytics.herokuapp.com/linkClick';
+  const pageViewEndpoint = "https://swanky-ibises-analytics.herokuapp.com/pageView";
+  const pageTimeEndpoint = "https://swanky-ibises-analytics.herokuapp.com/pagetime";
+  const addressEndpoint = `https://swanky-ibises-analytics.herokuapp.com/${location.hostname}/address`
 
 
   //Get request for IP address of client
