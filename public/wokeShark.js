@@ -117,7 +117,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   if ("onhashchange" in window) {
     function currentHash() {
       var newLocation = location.hash.replace(/[^\w\s]/gi, '') || 'homepage';
-      postTimeDifference(window.firstDate, location.hostname, window.thisLocation, newLocation);
+      postTimeDifference(window.firstDate, window.thisLocation, newLocation);
       window.thisLocation = newLocation;
     }
   }
